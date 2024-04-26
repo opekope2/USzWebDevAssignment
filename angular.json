@@ -102,6 +102,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "recipemanager:build:production",
+              "serveTarget": "recipemanager:serve:production"
+            },
+            "development": {
+              "buildTarget": "recipemanager:build:development",
+              "serveTarget": "recipemanager:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
