@@ -1,0 +1,73 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button aria-label="Back" routerLink="..">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Edit recipe</span>
+    <span class="spacer"></span>
+    <button mat-icon-button aria-label="Save" (click)="save()">
+        <mat-icon>save</mat-icon>
+    </button>
+</mat-toolbar>
+
+<main *ngIf="recipe">
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Recipe name</mat-label>
+        <input matInput type="text" [(ngModel)]="recipe.name" />
+    </mat-form-field>
+
+    <h1 class="full-width">Ingredients</h1>
+    <ng-container *ngFor="let ingredient of recipe.ingredients; let i = index">
+        <mat-form-field appearance="outline" class="narrow">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" [(ngModel)]="ingredient.amount" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="narrow">
+            <mat-label>Unit</mat-label>
+            <input matInput type="text" [(ngModel)]="ingredient.unit" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="wide">
+            <mat-label>Ingredient</mat-label>
+            <input matInput type="text" [(ngModel)]="ingredient.ingredient" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" aria-label="Remove ingredient" (click)="removeIngredientAt(i)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </ng-container>
+    <ng-container [formGroup]="addIngredientForm">
+        <mat-form-field appearance="outline" class="narrow">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" formControlName="amount" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="narrow">
+            <mat-label>Unit</mat-label>
+            <input matInput type="text" formControlName="unit" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="wide">
+            <mat-label>Ingredient</mat-label>
+            <input matInput type="text" formControlName="ingredient" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" aria-label="Remove ingredient" (click)="addIngredient()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </ng-container>
+
+    <h1 class="full-width">Instructions</h1>
+    <ng-container *ngFor="let instruction of recipe.instructions; let i = index">
+        <mat-form-field appearance="outline" class="almost-full-width">
+            <mat-label>Instruction</mat-label>
+            <input matInput type="text" [(ngModel)]="instruction.instruction" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" aria-label="Remove instruction" (click)="removeInstructionAt(i)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </ng-container>
+    <ng-container>
+        <mat-form-field appearance="outline" class="almost-full-width">
+            <mat-label>Instruction</mat-label>
+            <input matInput type="text" [formControl]="addInstructionControl" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" aria-label="Add instruction" (click)="addInstruction()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </ng-container>
+</main>

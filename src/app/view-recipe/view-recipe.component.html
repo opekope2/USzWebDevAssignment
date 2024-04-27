@@ -4,7 +4,7 @@
     </button>
     <span>{{(recipe$ | async)?.name}}</span>
     <span class="spacer"></span>
-    <button mat-icon-button aria-label="Edit recipe" (click)="editRecipe()">
+    <button mat-icon-button aria-label="Edit recipe" routerLink="edit">
         <mat-icon>edit</mat-icon>
     </button>
     <button mat-icon-button aria-label="Delete recipe" (click)="deleteRecipe()">

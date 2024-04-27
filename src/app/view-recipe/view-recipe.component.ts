@@ -38,10 +38,6 @@ export class ViewRecipeComponent implements OnInit {
     )
   }
 
-  editRecipe() {
-
-  }
-
   deleteRecipe() {
 
   }

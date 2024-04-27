@@ -1,0 +1,30 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1rem max(calc((100% - 32rem) / 2), 1rem);
+
+    button {
+        flex-basis: 3rem;
+    }
+
+    .narrow {
+        flex-basis: 20%;
+    }
+
+    .wide {
+        flex-basis: calc(60% - 3rem);
+    }
+
+    .almost-full-width {
+        flex-basis: calc(100% - 3rem);
+    }
+
+    .full-width {
+        flex-basis: 100%;
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
