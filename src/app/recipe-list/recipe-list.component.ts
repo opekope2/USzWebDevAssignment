@@ -7,7 +7,6 @@ import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
 import { Observable, filter, map, switchMap } from 'rxjs';
-import { QueryDocumentSnapshot } from '@angular/fire/compat/firestore';
 import { Recipe } from '../shared/data/recipe';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +24,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './recipe-list.component.scss'
 })
 export class RecipeListComponent implements OnInit {
-  recipes$?: Observable<QueryDocumentSnapshot<Recipe>[]>;
+  recipes$?: Observable<Recipe[]>;
 
   constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router) { }
 
@@ -34,6 +33,8 @@ export class RecipeListComponent implements OnInit {
       filter(Boolean),
       switchMap(user => this.recipeManagerService.getRecipes(user.uid)),
       map(snapshot => snapshot.docs),
+      map(docs => docs.filter(doc => doc.exists)),
+      map(docs => docs.map(doc => doc.data())),
     )
   }
 

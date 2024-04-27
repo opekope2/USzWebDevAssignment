@@ -9,8 +9,6 @@
     </button>
 </mat-toolbar>
 
-<main *ngFor="let recipe of recipes$ | async">
-    <ng-container *ngIf="recipe.exists">
-        <mat-card>{{recipe.data().name}}</mat-card>
-    </ng-container>
+<main>
+    <mat-card *ngFor="let recipe of recipes$ | async">{{recipe.name}}</mat-card>
 </main>
