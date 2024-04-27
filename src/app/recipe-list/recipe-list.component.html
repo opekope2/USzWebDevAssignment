@@ -10,5 +10,5 @@
 </mat-toolbar>
 
 <main>
-    <mat-card *ngFor="let recipe of recipes$ | async">{{recipe.name}}</mat-card>
+    <mat-card *ngFor="let recipe of recipes$ | async" (click)="viewRecipe(recipe.id!)">{{recipe.name}}</mat-card>
 </main>

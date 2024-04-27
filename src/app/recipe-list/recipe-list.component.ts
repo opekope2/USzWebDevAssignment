@@ -42,6 +42,10 @@ export class RecipeListComponent implements OnInit {
 
   }
 
+  async viewRecipe(recipeId: string) {
+    await this.router.navigate(["recipes", recipeId]);
+  }
+
   async logout() {
     await this.authService.logout();
     await this.router.navigate(["login"]);

@@ -21,6 +21,15 @@ export class RecipeManagerService {
       .set({ ...recipe, id });
   }
 
+  getRecipe(uid: string, recipeId: string) /* : AngularFire is retarded */ {
+    return this.firestore
+      .collection(USERS_COLLECTION_NAME)
+      .doc(uid)
+      .collection<Recipe>(RECIPES_COLLECTION_NAME)
+      .doc(recipeId)
+      .get();
+  }
+
   getRecipes(uid: string): Observable<QuerySnapshot<Recipe>> {
     return this.firestore
       .collection(USERS_COLLECTION_NAME)
