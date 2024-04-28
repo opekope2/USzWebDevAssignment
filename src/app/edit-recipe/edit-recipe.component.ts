@@ -35,7 +35,6 @@ import { TranslateService } from '../shared/services/translate.service';
 })
 export class EditRecipeComponent implements OnInit {
   @Input() recipeId?: string;
-  private create?: boolean;
 
   recipe?: Recipe;
 
@@ -56,24 +55,15 @@ export class EditRecipeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.create = !this.recipeId) {
-      this.recipe = {
-        name: "",
-        description: "",
-        ingredients: [],
-        instructions: []
-      };
-    } else {
-      this.authService.currentUser$.pipe(
-        take(1),
-        filter(Boolean),
-        switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
-        filter(doc => doc.exists),
-        map(document => document.data()!),
-      ).subscribe(recipe => {
-        this.recipe = recipe;
-      });
-    }
+    this.authService.currentUser$.pipe(
+      take(1),
+      filter(Boolean),
+      switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
+      filter(doc => doc.exists),
+      map(document => document.data()!),
+    ).subscribe(recipe => {
+      this.recipe = recipe;
+    });
   }
 
   addIngredient() {
@@ -111,25 +101,6 @@ export class EditRecipeComponent implements OnInit {
   }
 
   save() {
-    if (this.create!) {
-      this.createRecipe()
-    } else {
-      this.updateRecipe()
-    }
-  }
-
-  private createRecipe() {
-    this.authService.currentUser$.pipe(
-      take(1),
-      filter(Boolean),
-      switchMap(user => this.recipeManagerService.createRecipe(user.uid, this.recipe!)),
-    ).subscribe(id => {
-      this.snackBar.open(this.translateService.translate("RecipeCreated"), undefined, { duration: 4000 });
-      this.router.navigate(["recipes", id]);
-    });
-  }
-
-  private updateRecipe() {
     this.authService.currentUser$.pipe(
       take(1),
       filter(Boolean),

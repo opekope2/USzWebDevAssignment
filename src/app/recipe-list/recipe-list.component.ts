@@ -10,6 +10,8 @@ import { Observable, filter, map, switchMap, take } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
+import { DialogService } from '../shared/services/dialog.service';
+import { TranslateService } from '../shared/services/translate.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -28,7 +30,13 @@ import { TranslatePipe } from '../shared/pipes/translate.pipe';
 export class RecipeListComponent implements OnInit {
   recipes$?: Observable<Recipe[]>;
 
-  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private recipeManagerService: RecipeManagerService,
+    private authService: AuthService,
+    private router: Router,
+    private translateService: TranslateService,
+    private dialogService: DialogService,
+  ) { }
 
   ngOnInit() {
     this.recipes$ = this.authService.currentUser$.pipe(
@@ -42,7 +50,24 @@ export class RecipeListComponent implements OnInit {
   }
 
   createRecipe() {
-    this.router.navigate(["recipes", "create"]);
+    this.dialogService.prompt(
+      this.translateService.translate("AddRecipe"),
+      this.translateService.translate("RecipeName"),
+      this.translateService.translate("AddRecipe"),
+      this.translateService.translate("Cancel")
+    ).pipe(
+      filter(Boolean),
+      map(recipeName => ({ name: recipeName, description: "", ingredients: [], instructions: [] })),
+      switchMap(
+        recipe => this.authService.currentUser$.pipe(
+          take(1),
+          filter(Boolean),
+          switchMap(user => this.recipeManagerService.createRecipe(user.uid, recipe))
+        )
+      ),
+    ).subscribe(id => {
+      this.router.navigate(["recipes", id, "edit"]);
+    });
   }
 
   async viewRecipe(recipeId: string) {

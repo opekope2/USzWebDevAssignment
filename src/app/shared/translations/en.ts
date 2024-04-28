@@ -21,7 +21,7 @@ export const englishTranslation = {
 
     // Recipe list
     Recipes: "Recipes",
-    AddRecipe: "Add recipe",
+    AddRecipe: "Create recipe",
     LogOut: "Log out",
 
     // Recipe viewer

@@ -36,14 +36,6 @@ export const routes: Routes = [
         }
     },
     {
-        path: "recipes/create",
-        component: EditRecipeComponent,
-        canActivate: [AngularFireAuthGuard],
-        data: {
-            authGuardPipe: redirectUnauthorizedToLogin
-        }
-    },
-    {
         path: "recipes/:recipeId",
         component: ViewRecipeComponent,
         canActivate: [AngularFireAuthGuard],

@@ -21,7 +21,7 @@ export const hungarianTranslation = {
 
     // Recipe list
     Recipes: "Receptek",
-    AddRecipe: "Recept hozzáadása",
+    AddRecipe: "Recept létrehozása",
     LogOut: "Kijelentkezés",
 
     // Recipe viewer
