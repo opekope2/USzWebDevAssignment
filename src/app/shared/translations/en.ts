@@ -4,6 +4,8 @@ export const englishTranslation = {
     Back: "Back",
     Save: "Save",
     Ok: "OK",
+    Yes: "Yes",
+    No: "No",
 
     // Login/register
     LogIn: "Log in",

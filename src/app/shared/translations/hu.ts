@@ -4,6 +4,8 @@ export const hungarianTranslation = {
     Back: "Vissza",
     Save: "Mentés",
     Ok: "OK",
+    Yes: "Igen",
+    No: "Nem",
 
     // Login/register
     LogIn: "Bejelentkezés",
