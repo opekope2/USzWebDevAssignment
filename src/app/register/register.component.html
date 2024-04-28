@@ -23,3 +23,5 @@
 
     <button mat-raised-button color="primary" type="submit">{{ "Register" | translate }}</button>
 </form>
+
+<app-loading-indicator *ngIf="registering" />

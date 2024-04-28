@@ -10,11 +10,14 @@ import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { TranslateService } from '../shared/services/translate.service';
 import { DialogService } from '../shared/services/dialog.service';
+import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
+    CommonModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -23,11 +26,13 @@ import { DialogService } from '../shared/services/dialog.service';
     ReactiveFormsModule,
     RouterModule,
     TranslatePipe,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  registering = false;
   form = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
@@ -54,6 +59,8 @@ export class RegisterComponent {
       return;
     }
 
+    this.registering = true;
+
     try {
       await this.authService.register(email, password);
       await this.router.navigate(["recipes"]);
@@ -63,6 +70,8 @@ export class RegisterComponent {
         error.toString(),
         this.translateService.translate("Ok")
       );
+    } finally {
+      this.registering = false;
     }
 
     // Stop printing FirebaseError to console you useless piece of garbage angular/firebase/angularfire after I catch it
