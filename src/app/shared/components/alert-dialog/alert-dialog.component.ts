@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-alert-dialog',
@@ -9,7 +8,6 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
   imports: [
     MatButtonModule,
     MatDialogModule,
-    TranslatePipe,
   ],
   templateUrl: './alert-dialog.component.html',
   styleUrl: './alert-dialog.component.scss'
