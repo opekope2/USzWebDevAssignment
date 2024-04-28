@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-recipe',
@@ -27,7 +28,7 @@ export class ViewRecipeComponent implements OnInit {
 
   recipe$?: Observable<Recipe>;
 
-  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router) { }
+  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.recipe$ = this.authService.currentUser$.pipe(
@@ -45,8 +46,8 @@ export class ViewRecipeComponent implements OnInit {
         switchMap(user => this.recipeManagerService.deleteRecipe(user.uid, this.recipeId!)),
         switchMap(() => from(this.router.navigate(["recipe"]))),
       ).subscribe(() => {
+        this.snackBar.open("Recipe was deleted successfully", undefined, { duration: 4000 });
         subscription.unsubscribe();
-        alert("Deleted successfully");
       });
     }
   }

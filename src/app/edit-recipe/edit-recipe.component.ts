@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Recipe } from '../shared/data/recipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -42,7 +43,13 @@ export class EditRecipeComponent implements OnInit {
   });
   addInstructionControl = new FormControl("");
 
-  constructor(private authService: AuthService, private recipeManagerService: RecipeManagerService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private recipeManagerService: RecipeManagerService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
     if (this.create = !this.recipeId) {
@@ -112,8 +119,8 @@ export class EditRecipeComponent implements OnInit {
       switchMap(user => from(this.recipeManagerService.createRecipe(user.uid, this.recipe!))),
       switchMap(id => this.router.navigate(["recipes", id])),
     ).subscribe(() => {
+      this.snackBar.open("Recipe was created successfully", undefined, { duration: 4000 });
       subscription.unsubscribe();
-      alert("Created successfully");
     });
   }
 
@@ -123,8 +130,8 @@ export class EditRecipeComponent implements OnInit {
       switchMap(user => from(this.recipeManagerService.updateRecipe(user.uid, this.recipe!))),
       switchMap(() => this.router.navigate([".."], { relativeTo: this.route })),
     ).subscribe(() => {
+      this.snackBar.open("Recipe was updated successfully", undefined, { duration: 4000 });
       subscription.unsubscribe();
-      alert("Saved successfully");
     });
   }
 }
