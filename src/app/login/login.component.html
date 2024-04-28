@@ -19,3 +19,5 @@
 
     <button mat-raised-button color="primary" type="submit">{{ "LogIn" | translate }}</button>
 </form>
+
+<app-loading-indicator *ngIf="loggingIn" />
