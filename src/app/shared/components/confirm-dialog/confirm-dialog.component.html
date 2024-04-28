@@ -3,6 +3,6 @@
     {{dialogOptions.message}}
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="false">{{ "No" | translate }}</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{ "Yes" | translate }}</button>
+    <button mat-button [mat-dialog-close]="false">{{dialogOptions.noButtonText}}</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{dialogOptions.yesButtonText}}</button>
 </mat-dialog-actions>

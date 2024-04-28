@@ -20,5 +20,7 @@ export class ConfirmDialogComponent {
 
 export interface ConfirmDialogOptions {
   title: string,
-  message: string
+  message: string,
+  yesButtonText: string,
+  noButtonText: string
 }

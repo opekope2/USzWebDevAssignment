@@ -54,7 +54,9 @@ export class ViewRecipeComponent implements OnInit {
   deleteRecipe() {
     this.dialogService.confirm(
       this.translateService.translate("DeleteRecipe"),
-      this.translateService.translate("ConfirmDeleteRecipe")
+      this.translateService.translate("ConfirmDeleteRecipe"),
+      this.translateService.translate("Delete"),
+      this.translateService.translate("Cancel")
     ).pipe(
       take(1),
       filter(Boolean),

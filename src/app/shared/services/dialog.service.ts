@@ -19,11 +19,11 @@ export class DialogService {
     );
   }
 
-  confirm(title: string, message: string): Observable<boolean> {
+  confirm(title: string, message: string, yesButtonText: string, noButtonText: string): Observable<boolean> {
     return this.dialog.open(
       ConfirmDialogComponent,
       {
-        data: { title, message } as ConfirmDialogOptions
+        data: { title, message, yesButtonText, noButtonText } as ConfirmDialogOptions
       }
     ).afterClosed()
   }

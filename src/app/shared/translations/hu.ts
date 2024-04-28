@@ -6,6 +6,8 @@ export const hungarianTranslation = {
     Ok: "OK",
     Yes: "Igen",
     No: "Nem",
+    Cancel: "Mégre",
+    Delete: "Törlés",
 
     // Login/register
     LogIn: "Bejelentkezés",

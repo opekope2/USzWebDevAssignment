@@ -6,6 +6,8 @@ export const englishTranslation = {
     Ok: "OK",
     Yes: "Yes",
     No: "No",
+    Cancel: "Cancel",
+    Delete: "Delete",
 
     // Login/register
     LogIn: "Log in",
