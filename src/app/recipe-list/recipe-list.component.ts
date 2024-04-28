@@ -60,8 +60,8 @@ export class RecipeListComponent implements OnInit {
       this.translateService.translate("AddRecipe"),
       this.translateService.translate("Cancel")
     ).pipe(
-      tap(() => this.loading = true),
       filter(Boolean),
+      tap(() => this.loading = true),
       map(recipeName => ({ name: recipeName, description: "", ingredients: [], instructions: [] })),
       switchMap(
         recipe => this.authService.currentUser$.pipe(

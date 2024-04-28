@@ -62,9 +62,9 @@ export class ViewRecipeComponent implements OnInit {
       this.translateService.translate("Delete"),
       this.translateService.translate("Cancel")
     ).pipe(
-      tap(() => this.loading = true),
       take(1),
       filter(Boolean),
+      tap(() => this.loading = true),
       switchMap(() => this.authService.currentUser$),
       filter(Boolean),
       switchMap(user => this.recipeManagerService.deleteRecipe(user.uid, this.recipeId!)),
