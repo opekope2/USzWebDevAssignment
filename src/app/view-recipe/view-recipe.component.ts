@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
 import { AuthService } from '../shared/services/auth.service';
-import { Observable, filter, from, map, switchMap, take } from 'rxjs';
+import { Observable, filter, from, map, switchMap, take, tap } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { TranslateService } from '../shared/services/translate.service';
 import { DialogService } from '../shared/services/dialog.service';
+import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
 
 @Component({
   selector: 'app-view-recipe',
@@ -23,6 +24,7 @@ import { DialogService } from '../shared/services/dialog.service';
     MatToolbarModule,
     RouterModule,
     TranslatePipe,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.scss'
@@ -30,6 +32,7 @@ import { DialogService } from '../shared/services/dialog.service';
 export class ViewRecipeComponent implements OnInit {
   @Input() recipeId?: string;
 
+  loading = true;
   recipe$?: Observable<Recipe>;
 
   constructor(
@@ -49,6 +52,7 @@ export class ViewRecipeComponent implements OnInit {
       filter(doc => doc.exists),
       map(document => document.data()!),
     )
+    this.recipe$.subscribe(() => this.loading = false);
   }
 
   deleteRecipe() {
@@ -58,12 +62,14 @@ export class ViewRecipeComponent implements OnInit {
       this.translateService.translate("Delete"),
       this.translateService.translate("Cancel")
     ).pipe(
+      tap(() => this.loading = true),
       take(1),
       filter(Boolean),
       switchMap(() => this.authService.currentUser$),
       filter(Boolean),
       switchMap(user => this.recipeManagerService.deleteRecipe(user.uid, this.recipeId!)),
     ).subscribe(() => {
+      this.loading = false;
       this.snackBar.open(this.translateService.translate("RecipeDeleted"), undefined, { duration: 4000 });
       this.router.navigate(["recipe"]);
     });
