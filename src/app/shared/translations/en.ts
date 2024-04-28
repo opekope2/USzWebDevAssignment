@@ -34,6 +34,7 @@ export const englishTranslation = {
 
     // Recipe editor
     RecipeName: "Recipe name",
+    RecipeDescription: "Recipe description",
     Amount: "Amount",
     Unit: "Unit",
     Ingredient: "Ingredient",

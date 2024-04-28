@@ -15,6 +15,11 @@
         <input matInput type="text" [(ngModel)]="recipe.name" />
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ "RecipeDescription" | translate }}</mat-label>
+        <textarea matInput [(ngModel)]="recipe.description"></textarea>
+    </mat-form-field>
+
     <h1 class="full-width">{{ "Ingredients" | translate }}</h1>
     <ng-container *ngFor="let ingredient of recipe.ingredients; let i = index">
         <mat-form-field appearance="outline" class="narrow">

@@ -59,6 +59,7 @@ export class EditRecipeComponent implements OnInit {
     if (this.create = !this.recipeId) {
       this.recipe = {
         name: "",
+        description: "",
         ingredients: [],
         instructions: []
       };

@@ -34,6 +34,7 @@ export const hungarianTranslation = {
 
     // Recipe editor
     RecipeName: "Recept neve",
+    RecipeDescription: "Recept leírása",
     Amount: "Mennyiség",
     Unit: "Mérték",
     Ingredient: "Hozzávaló",

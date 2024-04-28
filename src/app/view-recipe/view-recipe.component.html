@@ -13,6 +13,8 @@
 </mat-toolbar>
 
 <main>
+    <p class="description">{{(recipe$ | async)?.description}}</p>
+
     <h1>{{ "Ingredients" | translate }}</h1>
     <ul>
         <li *ngFor="let ingredient of (recipe$ | async)?.ingredients">{{ingredient.amount}}{{ingredient.unit}}

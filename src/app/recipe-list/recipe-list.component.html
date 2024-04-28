@@ -10,5 +10,8 @@
 </mat-toolbar>
 
 <main>
-    <mat-card *ngFor="let recipe of recipes$ | async" (click)="viewRecipe(recipe.id!)">{{recipe.name}}</mat-card>
+    <mat-card *ngFor="let recipe of recipes$ | async" (click)="viewRecipe(recipe.id!)">
+        <h1>{{recipe.name}}</h1>
+        <p class="description">{{recipe.description}}</p>
+    </mat-card>
 </main>
