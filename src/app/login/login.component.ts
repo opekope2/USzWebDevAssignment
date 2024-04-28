@@ -9,6 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { TranslateService } from '../shared/services/translate.service';
+import { DialogService } from '../shared/services/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,12 @@ export class LoginComponent {
     password: new FormControl()
   });
 
-  constructor(private authService: AuthService, private router: Router, private translateService: TranslateService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private translateService: TranslateService,
+    private dialogService: DialogService,
+  ) { }
 
   async login() {
     if (!this.form.valid) return;
@@ -42,8 +48,8 @@ export class LoginComponent {
     try {
       await this.authService.login(email, password);
       await this.router.navigate(["recipes"]);
-    } catch (error) {
-      alert(this.translateService.translate("LoginFailed"));
+    } catch (error: any) {
+      this.dialogService.alert(this.translateService.translate("LoginFailed"), error.toString());
     }
 
     // Stop printing FirebaseError to console you useless piece of garbage angular/firebase/angularfire after I catch it

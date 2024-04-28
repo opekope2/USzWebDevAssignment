@@ -3,6 +3,7 @@ export const hungarianTranslation = {
     AppName: "Receptkezelő",
     Back: "Vissza",
     Save: "Mentés",
+    Ok: "OK",
 
     // Login/register
     LogIn: "Bejelentkezés",

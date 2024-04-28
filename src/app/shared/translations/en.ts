@@ -3,6 +3,7 @@ export const englishTranslation = {
     AppName: "Recipe Manager",
     Back: "Back",
     Save: "Save",
+    Ok: "OK",
 
     // Login/register
     LogIn: "Log in",
