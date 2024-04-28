@@ -35,7 +35,7 @@ export class RecipeManagerService {
     return this.firestore
       .collection(USERS_COLLECTION_NAME)
       .doc(uid)
-      .collection<Recipe>(RECIPES_COLLECTION_NAME)
+      .collection<Recipe>(RECIPES_COLLECTION_NAME, collection => collection.orderBy("name"))
       .get();
   }
 
