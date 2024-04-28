@@ -14,6 +14,7 @@ import { Recipe } from '../shared/data/recipe';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { TranslateService } from '../shared/services/translate.service';
+import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -29,6 +30,7 @@ import { TranslateService } from '../shared/services/translate.service';
     ReactiveFormsModule,
     RouterModule,
     TranslatePipe,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss'
@@ -36,6 +38,7 @@ import { TranslateService } from '../shared/services/translate.service';
 export class EditRecipeComponent implements OnInit {
   @Input() recipeId?: string;
 
+  loading = true;
   recipe?: Recipe;
 
   addIngredientForm = new FormGroup({
@@ -62,6 +65,7 @@ export class EditRecipeComponent implements OnInit {
       filter(doc => doc.exists),
       map(document => document.data()!),
     ).subscribe(recipe => {
+      this.loading = false;
       this.recipe = recipe;
     });
   }
@@ -101,11 +105,13 @@ export class EditRecipeComponent implements OnInit {
   }
 
   save() {
+    this.loading = true;
     this.authService.currentUser$.pipe(
       take(1),
       filter(Boolean),
       switchMap(user => this.recipeManagerService.updateRecipe(user.uid, this.recipe!)),
     ).subscribe(() => {
+      this.loading = false;
       this.snackBar.open(this.translateService.translate("RecipeUpdated"), undefined, { duration: 4000 });
       this.router.navigate([".."], { relativeTo: this.route });
     });
