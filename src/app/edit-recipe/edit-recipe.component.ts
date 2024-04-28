@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../shared/services/auth.service';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
-import { filter, from, map, switchMap } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -63,14 +63,14 @@ export class EditRecipeComponent implements OnInit {
         instructions: []
       };
     } else {
-      const subscription = this.authService.currentUser$.pipe(
+      this.authService.currentUser$.pipe(
+        take(1),
         filter(Boolean),
         switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
         filter(doc => doc.exists),
         map(document => document.data()!),
       ).subscribe(recipe => {
         this.recipe = recipe;
-        subscription.unsubscribe();
       });
     }
   }
@@ -118,24 +118,24 @@ export class EditRecipeComponent implements OnInit {
   }
 
   private createRecipe() {
-    const subscription = this.authService.currentUser$.pipe(
+    this.authService.currentUser$.pipe(
+      take(1),
       filter(Boolean),
-      switchMap(user => from(this.recipeManagerService.createRecipe(user.uid, this.recipe!))),
-      switchMap(id => this.router.navigate(["recipes", id])),
-    ).subscribe(() => {
+      switchMap(user => this.recipeManagerService.createRecipe(user.uid, this.recipe!)),
+    ).subscribe(id => {
       this.snackBar.open(this.translateService.translate("RecipeCreated"), undefined, { duration: 4000 });
-      subscription.unsubscribe();
+      this.router.navigate(["recipes", id]);
     });
   }
 
   private updateRecipe() {
-    const subscription = this.authService.currentUser$.pipe(
+    this.authService.currentUser$.pipe(
+      take(1),
       filter(Boolean),
-      switchMap(user => from(this.recipeManagerService.updateRecipe(user.uid, this.recipe!))),
-      switchMap(() => this.router.navigate([".."], { relativeTo: this.route })),
+      switchMap(user => this.recipeManagerService.updateRecipe(user.uid, this.recipe!)),
     ).subscribe(() => {
       this.snackBar.open(this.translateService.translate("RecipeUpdated"), undefined, { duration: 4000 });
-      subscription.unsubscribe();
+      this.router.navigate([".."], { relativeTo: this.route });
     });
   }
 }

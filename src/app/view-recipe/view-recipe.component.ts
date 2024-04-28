@@ -43,6 +43,7 @@ export class ViewRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.recipe$ = this.authService.currentUser$.pipe(
+      take(1),
       filter(Boolean),
       switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
       filter(doc => doc.exists),

@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Observable, filter, map, switchMap, take } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
@@ -32,6 +32,7 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {
     this.recipes$ = this.authService.currentUser$.pipe(
+      take(1),
       filter(Boolean),
       switchMap(user => this.recipeManagerService.getRecipes(user.uid)),
       map(snapshot => snapshot.docs),
