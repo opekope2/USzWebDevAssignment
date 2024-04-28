@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{dialogOptions.title}}</h1>
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>{{dialogOptions.message}}</mat-label>
+        <input matInput type="text" #prompt />
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="null">{{dialogOptions.noButtonText}}</button>
+    <button mat-button [mat-dialog-close]="prompt.value" cdkFocusInitial>{{dialogOptions.yesButtonText}}</button>
+</mat-dialog-actions>

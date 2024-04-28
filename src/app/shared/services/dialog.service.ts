@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent, AlertDialogOptions } from '../components/alert-dialog/alert-dialog.component';
 import { ConfirmDialogComponent, ConfirmDialogOptions } from '../components/confirm-dialog/confirm-dialog.component';
+import { PromptDialogComponent, PromptDialogOptions } from '../components/prompt-dialog/prompt-dialog.component';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,6 +25,15 @@ export class DialogService {
       ConfirmDialogComponent,
       {
         data: { title, message, yesButtonText, noButtonText } as ConfirmDialogOptions
+      }
+    ).afterClosed()
+  }
+
+  prompt(title: string, message: string, yesButtonText: string, noButtonText: string): Observable<string | null> {
+    return this.dialog.open(
+      PromptDialogComponent,
+      {
+        data: { title, message, yesButtonText, noButtonText } as PromptDialogOptions
       }
     ).afterClosed()
   }
