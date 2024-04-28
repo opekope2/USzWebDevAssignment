@@ -33,6 +33,7 @@ import { Recipe } from '../shared/data/recipe';
 })
 export class EditRecipeComponent implements OnInit {
   @Input() recipeId?: string;
+  private create?: boolean;
 
   recipe?: Recipe;
 
@@ -46,15 +47,23 @@ export class EditRecipeComponent implements OnInit {
   constructor(private authService: AuthService, private recipeManagerService: RecipeManagerService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const subscription = this.authService.currentUser$.pipe(
-      filter(Boolean),
-      switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
-      filter(doc => doc.exists),
-      map(document => document.data()!),
-    ).subscribe(recipe => {
-      this.recipe = recipe;
-      subscription.unsubscribe();
-    });
+    if (this.create = !this.recipeId) {
+      this.recipe = {
+        name: "",
+        ingredients: [],
+        instructions: []
+      };
+    } else {
+      const subscription = this.authService.currentUser$.pipe(
+        filter(Boolean),
+        switchMap(user => this.recipeManagerService.getRecipe(user.uid, this.recipeId!)),
+        filter(doc => doc.exists),
+        map(document => document.data()!),
+      ).subscribe(recipe => {
+        this.recipe = recipe;
+        subscription.unsubscribe();
+      });
+    }
   }
 
   addIngredient() {
@@ -92,13 +101,32 @@ export class EditRecipeComponent implements OnInit {
   }
 
   save() {
+    if (this.create!) {
+      this.createRecipe()
+    } else {
+      this.updateRecipe()
+    }
+  }
+
+  private createRecipe() {
+    const subscription = this.authService.currentUser$.pipe(
+      filter(Boolean),
+      switchMap(user => from(this.recipeManagerService.createRecipe(user.uid, this.recipe!))),
+      switchMap(id => this.router.navigate(["recipes", id])),
+    ).subscribe(() => {
+      subscription.unsubscribe();
+      alert("Created successfully");
+    });
+  }
+
+  private updateRecipe() {
     const subscription = this.authService.currentUser$.pipe(
       filter(Boolean),
       switchMap(user => from(this.recipeManagerService.updateRecipe(user.uid, this.recipe!))),
+      switchMap(() => this.router.navigate([".."], { relativeTo: this.route })),
     ).subscribe(() => {
       subscription.unsubscribe();
       alert("Saved successfully");
-      this.router.navigate([".."], { relativeTo: this.route });
     });
   }
 }

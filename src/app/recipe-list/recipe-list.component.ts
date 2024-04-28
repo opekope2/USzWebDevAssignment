@@ -39,7 +39,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   createRecipe() {
-
+    this.router.navigate(["recipes", "create"]);
   }
 
   async viewRecipe(recipeId: string) {

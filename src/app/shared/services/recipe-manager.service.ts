@@ -10,15 +10,16 @@ import { Observable } from 'rxjs';
 export class RecipeManagerService {
   constructor(private firestore: AngularFirestore) { }
 
-  createRecipe(uid: string, recipe: Recipe): Promise<void> {
+  async createRecipe(uid: string, recipe: Recipe): Promise<string> {
     const id = this.firestore.createId();
 
-    return this.firestore
+    await this.firestore
       .collection(USERS_COLLECTION_NAME)
       .doc(uid)
       .collection(RECIPES_COLLECTION_NAME)
       .doc(id)
       .set({ ...recipe, id });
+    return id;
   }
 
   getRecipe(uid: string, recipeId: string) /* : AngularFire is retarded */ {
