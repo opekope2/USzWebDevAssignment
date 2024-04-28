@@ -6,12 +6,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
-import { Observable, filter, map, switchMap, take } from 'rxjs';
+import { Observable, filter, map, switchMap, take, tap } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { DialogService } from '../shared/services/dialog.service';
 import { TranslateService } from '../shared/services/translate.service';
+import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -23,11 +24,13 @@ import { TranslateService } from '../shared/services/translate.service';
     MatIconModule,
     MatToolbarModule,
     TranslatePipe,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.scss'
 })
 export class RecipeListComponent implements OnInit {
+  loading = true;
   recipes$?: Observable<Recipe[]>;
 
   constructor(
@@ -46,7 +49,8 @@ export class RecipeListComponent implements OnInit {
       map(snapshot => snapshot.docs),
       map(docs => docs.filter(doc => doc.exists)),
       map(docs => docs.map(doc => doc.data())),
-    )
+    );
+    this.recipes$.subscribe(() => this.loading = false);
   }
 
   createRecipe() {
@@ -56,6 +60,7 @@ export class RecipeListComponent implements OnInit {
       this.translateService.translate("AddRecipe"),
       this.translateService.translate("Cancel")
     ).pipe(
+      tap(() => this.loading = true),
       filter(Boolean),
       map(recipeName => ({ name: recipeName, description: "", ingredients: [], instructions: [] })),
       switchMap(
@@ -66,6 +71,7 @@ export class RecipeListComponent implements OnInit {
         )
       ),
     ).subscribe(id => {
+      this.loading = false;
       this.router.navigate(["recipes", id, "edit"]);
     });
   }
