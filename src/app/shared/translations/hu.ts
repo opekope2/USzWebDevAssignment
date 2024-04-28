@@ -3,6 +3,11 @@ export const hungarianTranslation = {
     Back: "Vissza",
     Save: "Mentés",
 
+    // Recipe list
+    Recipes: "Receptek",
+    AddRecipe: "Recept hozzáadása",
+    LogOut: "Kijelentkezés",
+
     // Recipe viewer
     DeleteRecipe: "Recept törlése",
     ConfirmDeleteRecipe: "Biztos törlöd ezt a receptet?",

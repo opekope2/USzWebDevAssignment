@@ -3,6 +3,11 @@ export const englishTranslation = {
     Back: "Back",
     Save: "Save",
 
+    // Recipe list
+    Recipes: "Recipes",
+    AddRecipe: "Add recipe",
+    LogOut: "Log out",
+
     // Recipe viewer
     DeleteRecipe: "Delete recipe",
     ConfirmDeleteRecipe: "Do you want to delete this recipe?",

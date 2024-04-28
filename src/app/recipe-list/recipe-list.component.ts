@@ -9,6 +9,7 @@ import { RecipeManagerService } from '../shared/services/recipe-manager.service'
 import { Observable, filter, map, switchMap } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-recipe-list',
@@ -18,7 +19,8 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    TranslatePipe,
   ],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.scss'
