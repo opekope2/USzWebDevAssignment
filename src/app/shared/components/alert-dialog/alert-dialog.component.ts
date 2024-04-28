@@ -20,5 +20,6 @@ export class AlertDialogComponent {
 
 export interface AlertDialogOptions {
   title: string,
-  message: string
+  message: string,
+  okButtonText: string
 }

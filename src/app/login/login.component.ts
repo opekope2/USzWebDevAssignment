@@ -49,7 +49,7 @@ export class LoginComponent {
       await this.authService.login(email, password);
       await this.router.navigate(["recipes"]);
     } catch (error: any) {
-      this.dialogService.alert(this.translateService.translate("LoginFailed"), error.toString());
+      this.dialogService.alert(this.translateService.translate("LoginFailed"), error.toString(), this.translateService.translate("Ok"));
     }
 
     // Stop printing FirebaseError to console you useless piece of garbage angular/firebase/angularfire after I catch it

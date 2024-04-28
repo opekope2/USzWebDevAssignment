@@ -46,7 +46,11 @@ export class RegisterComponent {
 
     const { email, password, password2 } = this.form.value;
     if (password != password2) {
-      this.dialogService.alert(this.translateService.translate("RegistrationFailed"), this.translateService.translate("PasswordMismatch"));
+      this.dialogService.alert(
+        this.translateService.translate("RegistrationFailed"),
+        this.translateService.translate("PasswordMismatch"),
+        this.translateService.translate("Ok")
+      );
       return;
     }
 
@@ -54,7 +58,11 @@ export class RegisterComponent {
       await this.authService.register(email, password);
       await this.router.navigate(["recipes"]);
     } catch (error: any) {
-      this.dialogService.alert(this.translateService.translate("RegistrationFailed"), error.toString());
+      this.dialogService.alert(
+        this.translateService.translate("RegistrationFailed"),
+        error.toString(),
+        this.translateService.translate("Ok")
+      );
     }
 
     // Stop printing FirebaseError to console you useless piece of garbage angular/firebase/angularfire after I catch it

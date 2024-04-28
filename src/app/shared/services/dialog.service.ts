@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 export class DialogService {
   constructor(private dialog: MatDialog) { }
 
-  alert(title: string, message: string) {
+  alert(title: string, message: string, okButtonText: string) {
     this.dialog.open(
       AlertDialogComponent,
       {
-        data: { title, message } as AlertDialogOptions
+        data: { title, message, okButtonText } as AlertDialogOptions
       }
     );
   }
