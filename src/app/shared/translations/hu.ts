@@ -1,7 +1,18 @@
 export const hungarianTranslation = {
     // General
+    AppName: "Receptkezelő",
     Back: "Vissza",
     Save: "Mentés",
+
+    // Login/register
+    LogIn: "Bejelentkezés",
+    Register: "Regisztráció",
+    Email: "E-mail",
+    Password: "Jelszó",
+    ConfirmPassword: "Jelszó megerősítése",
+    LoginFailed: "Bejelentkezés sikertelen",
+    RegistrationFailed: "Regisztráció sikertelen",
+    PasswordMismatch: "A jelszavak nem egyeznek",
 
     // Recipe list
     Recipes: "Receptek",

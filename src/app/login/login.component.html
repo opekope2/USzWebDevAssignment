@@ -1,21 +1,21 @@
 <mat-toolbar color="primary">
-    <span>Recipe manager</span>
+    <span>{{ "AppName" | translate }}</span>
 </mat-toolbar>
 <nav mat-tab-nav-bar backgroundColor="primary" mat-stretch-tabs="false" mat-align-tabs="center" [tabPanel]="tabPanel">
-    <a mat-tab-link active>Login</a>
-    <a mat-tab-link routerLink="/register">Register</a>
+    <a mat-tab-link active>{{ "LogIn" | translate }}</a>
+    <a mat-tab-link routerLink="/register">{{ "Register" | translate }}</a>
 </nav>
 <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
 <form [formGroup]="form" (ngSubmit)="login()">
     <mat-form-field color="accent" appearance="outline">
-        <mat-label>E-mail</mat-label>
+        <mat-label>{{ "Email" | translate }}</mat-label>
         <input matInput type="email" formControlName="email" required />
     </mat-form-field>
     <mat-form-field color="accent" appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ "Password" | translate }}</mat-label>
         <input matInput type="password" formControlName="password" required />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Log in</button>
+    <button mat-raised-button color="primary" type="submit">{{ "LogIn" | translate }}</button>
 </form>

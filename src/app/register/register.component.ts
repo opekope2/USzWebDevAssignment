@@ -7,6 +7,8 @@ import { MatTabsModule } from "@angular/material/tabs"
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { TranslatePipe } from '../shared/pipes/translate.pipe';
+import { TranslateService } from '../shared/services/translate.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,8 @@ import { Router, RouterModule } from '@angular/router';
     MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TranslatePipe,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -30,14 +33,14 @@ export class RegisterComponent {
     password2: new FormControl()
   });
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private translateService: TranslateService) { }
 
   async register() {
     if (!this.form.valid) return;
 
     const { email, password, password2 } = this.form.value;
     if (password != password2) {
-      alert("Passwords don't match");
+      alert(this.translateService.translate("PasswordMismatch"));
       return;
     }
 
@@ -45,7 +48,7 @@ export class RegisterComponent {
       await this.authService.register(email, password);
       await this.router.navigate(["recipes"]);
     } catch (error) {
-      alert("Registration failed");
+      alert(this.translateService.translate("RegistrationFailed"));
     }
 
     // Stop printing FirebaseError to console you useless piece of garbage angular/firebase/angularfire after I catch it

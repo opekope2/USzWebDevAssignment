@@ -1,7 +1,18 @@
 export const englishTranslation = {
     // General
+    AppName: "Recipe Manager",
     Back: "Back",
     Save: "Save",
+
+    // Login/register
+    LogIn: "Log in",
+    Register: "Register",
+    Email: "E-mail",
+    Password: "Password",
+    ConfirmPassword: "Confirm password",
+    LoginFailed: "Failed to log in",
+    RegistrationFailed: "Registration failed",
+    PasswordMismatch: "Passwords don't match",
 
     // Recipe list
     Recipes: "Recipes",
