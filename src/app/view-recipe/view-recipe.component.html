@@ -1,25 +1,25 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="Back" routerLink="recipes">
+    <button mat-icon-button [attr.aria-label]="'Back' | translate" routerLink="recipes">
         <mat-icon>arrow_back</mat-icon>
     </button>
     <span>{{(recipe$ | async)?.name}}</span>
     <span class="spacer"></span>
-    <button mat-icon-button aria-label="Edit recipe" routerLink="edit">
+    <button mat-icon-button [attr.aria-label]="'EditRecipe' | translate" routerLink="edit">
         <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Delete recipe" (click)="deleteRecipe()">
+    <button mat-icon-button [attr.aria-label]="'DeleteRecipe' | translate" (click)="deleteRecipe()">
         <mat-icon>delete</mat-icon>
     </button>
 </mat-toolbar>
 
 <main>
-    <h1>Ingredients</h1>
+    <h1>{{ "Ingredients" | translate }}</h1>
     <ul>
         <li *ngFor="let ingredient of (recipe$ | async)?.ingredients">{{ingredient.amount}}{{ingredient.unit}}
             {{ingredient.ingredient}}</li>
     </ul>
 
-    <h1>Instructions</h1>
+    <h1>{{ "Instructions" | translate}}</h1>
     <ul>
         <li *ngFor="let instruction of (recipe$ | async)?.instructions">{{instruction.instruction}}</li>
     </ul>

@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe } from '../shared/pipes/translate.pipe';
+import { TranslateService } from '../shared/services/translate.service';
 
 @Component({
   selector: 'app-view-recipe',
@@ -18,7 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    RouterModule
+    RouterModule,
+    TranslatePipe,
   ],
   templateUrl: './view-recipe.component.html',
   styleUrl: './view-recipe.component.scss'
@@ -28,7 +31,13 @@ export class ViewRecipeComponent implements OnInit {
 
   recipe$?: Observable<Recipe>;
 
-  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(
+    private recipeManagerService: RecipeManagerService,
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private translateService: TranslateService
+  ) { }
 
   ngOnInit() {
     this.recipe$ = this.authService.currentUser$.pipe(
@@ -40,13 +49,13 @@ export class ViewRecipeComponent implements OnInit {
   }
 
   deleteRecipe() {
-    if (confirm("Do you want to delete this recipe?")) {
+    if (confirm(this.translateService.translate("ConfirmDeleteRecipe"))) {
       const subscription = this.authService.currentUser$.pipe(
         filter(Boolean),
         switchMap(user => this.recipeManagerService.deleteRecipe(user.uid, this.recipeId!)),
         switchMap(() => from(this.router.navigate(["recipe"]))),
       ).subscribe(() => {
-        this.snackBar.open("Recipe was deleted successfully", undefined, { duration: 4000 });
+        this.snackBar.open(this.translateService.translate("RecipeDeleted"), undefined, { duration: 4000 });
         subscription.unsubscribe();
       });
     }

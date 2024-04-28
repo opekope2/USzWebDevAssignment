@@ -3,16 +3,23 @@ export const englishTranslation = {
     Back: "Back",
     Save: "Save",
 
-    // Recipe editor
+    // Recipe viewer
+    DeleteRecipe: "Delete recipe",
+    ConfirmDeleteRecipe: "Do you want to delete this recipe?",
+    RecipeDeleted: "Recipe was deleted successfully",
+
+    // Recipe viewer/editor
     EditRecipe: "Edit recipe",
-    RecipeName: "Recipe name",
     Ingredients: "Ingredients",
+    Instructions: "Instructions",
+
+    // Recipe editor
+    RecipeName: "Recipe name",
     Amount: "Amount",
     Unit: "Unit",
     Ingredient: "Ingredient",
     AddIngredient: "Add Ingredient",
     RemoveIngredient: "Remove Ingredient",
-    Instructions: "Instructions",
     Instruction: "Instruction",
     AddInstruction: "Add instruction",
     RemoveInstruction: "Remove instruction",

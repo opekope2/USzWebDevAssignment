@@ -3,16 +3,23 @@ export const hungarianTranslation = {
     Back: "Vissza",
     Save: "Mentés",
 
-    // Recipe editor
+    // Recipe viewer
+    DeleteRecipe: "Recept törlése",
+    ConfirmDeleteRecipe: "Biztos törlöd ezt a receptet?",
+    RecipeDeleted: "Recept sikeresen törölve",
+
+    // Recipe viewer/editor
     EditRecipe: "Recept szerkesztése",
-    RecipeName: "Recept neve",
     Ingredients: "Hozzávalók",
+    Instructions: "Utasítások",
+
+    // Recipe editor
+    RecipeName: "Recept neve",
     Amount: "Mennyiség",
     Unit: "Mérték",
     Ingredient: "Hozzávaló",
     AddIngredient: "Hozzávaló hozzáadása",
     RemoveIngredient: "Hozzávaló eltávolítása",
-    Instructions: "Utasítások",
     Instruction: "Utasítás",
     AddInstruction: "Utasítás hozzáadása",
     RemoveInstruction: "Utasítás eltávolítása",
