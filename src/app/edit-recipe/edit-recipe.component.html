@@ -1,72 +1,76 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="Back" routerLink="..">
+    <button mat-icon-button [attr.aria-label]="'Back' | translate" routerLink="..">
         <mat-icon>arrow_back</mat-icon>
     </button>
-    <span>Edit recipe</span>
+    <span>{{ "EditRecipe" | translate }}</span>
     <span class="spacer"></span>
-    <button mat-icon-button aria-label="Save" (click)="save()">
+    <button mat-icon-button [attr.aria-label]="'Save' | translate" (click)="save()">
         <mat-icon>save</mat-icon>
     </button>
 </mat-toolbar>
 
 <main *ngIf="recipe">
     <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Recipe name</mat-label>
+        <mat-label>{{ "RecipeName" | translate }}</mat-label>
         <input matInput type="text" [(ngModel)]="recipe.name" />
     </mat-form-field>
 
-    <h1 class="full-width">Ingredients</h1>
+    <h1 class="full-width">{{ "Ingredients" | translate }}</h1>
     <ng-container *ngFor="let ingredient of recipe.ingredients; let i = index">
         <mat-form-field appearance="outline" class="narrow">
-            <mat-label>Amount</mat-label>
+            <mat-label>{{ "Amount" | translate }}</mat-label>
             <input matInput type="number" [(ngModel)]="ingredient.amount" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="narrow">
-            <mat-label>Unit</mat-label>
+            <mat-label>{{ "Unit" | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="ingredient.unit" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="wide">
-            <mat-label>Ingredient</mat-label>
+            <mat-label>{{ "Ingredient" | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="ingredient.ingredient" />
         </mat-form-field>
-        <button mat-icon-button color="primary" aria-label="Remove ingredient" (click)="removeIngredientAt(i)">
+        <button mat-icon-button color="primary" [attr.aria-label]="'RemoveIngredient' | translate"
+            (click)="removeIngredientAt(i)">
             <mat-icon>delete</mat-icon>
         </button>
     </ng-container>
     <ng-container [formGroup]="addIngredientForm">
         <mat-form-field appearance="outline" class="narrow">
-            <mat-label>Amount</mat-label>
+            <mat-label>{{ "Amount" | translate }}</mat-label>
             <input matInput type="number" formControlName="amount" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="narrow">
-            <mat-label>Unit</mat-label>
+            <mat-label>{{ "Unit" | translate }}</mat-label>
             <input matInput type="text" formControlName="unit" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="wide">
-            <mat-label>Ingredient</mat-label>
+            <mat-label>{{ "Ingredient" | translate }}</mat-label>
             <input matInput type="text" formControlName="ingredient" />
         </mat-form-field>
-        <button mat-icon-button color="primary" aria-label="Remove ingredient" (click)="addIngredient()">
+        <button mat-icon-button color="primary" [attr.aria-label]="'AddIngredient' | translate"
+            (click)="addIngredient()">
             <mat-icon>add</mat-icon>
         </button>
     </ng-container>
 
-    <h1 class="full-width">Instructions</h1>
+    <h1 class="full-width">{{ "Instructions" | translate }}</h1>
     <ng-container *ngFor="let instruction of recipe.instructions; let i = index">
         <mat-form-field appearance="outline" class="almost-full-width">
-            <mat-label>Instruction</mat-label>
+            <mat-label>{{ "Instruction" | translate }}</mat-label>
             <input matInput type="text" [(ngModel)]="instruction.instruction" />
         </mat-form-field>
-        <button mat-icon-button color="primary" aria-label="Remove instruction" (click)="removeInstructionAt(i)">
+        <button mat-icon-button color="primary" [attr.aria-label]="'RemoveInstruction' | translate"
+            (click)="removeInstructionAt(i)">
             <mat-icon>delete</mat-icon>
         </button>
     </ng-container>
     <ng-container>
         <mat-form-field appearance="outline" class="almost-full-width">
-            <mat-label>Instruction</mat-label>
+            <mat-label>{{ "Instruction" | translate }}</mat-label>
             <input matInput type="text" [formControl]="addInstructionControl" />
         </mat-form-field>
-        <button mat-icon-button color="primary" aria-label="Add instruction" (click)="addInstruction()">
+        <button mat-icon-button color="primary" [attr.aria-label]="'AddInstruction' | translate"
+            (click)="addInstruction()">
             <mat-icon>add</mat-icon>
         </button>
     </ng-container>

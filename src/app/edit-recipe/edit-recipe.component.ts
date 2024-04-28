@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Recipe } from '../shared/data/recipe';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe } from '../shared/pipes/translate.pipe';
+import { TranslateService } from '../shared/services/translate.service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -25,7 +27,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TranslatePipe,
   ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss'
@@ -49,6 +52,7 @@ export class EditRecipeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private translateService: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -119,7 +123,7 @@ export class EditRecipeComponent implements OnInit {
       switchMap(user => from(this.recipeManagerService.createRecipe(user.uid, this.recipe!))),
       switchMap(id => this.router.navigate(["recipes", id])),
     ).subscribe(() => {
-      this.snackBar.open("Recipe was created successfully", undefined, { duration: 4000 });
+      this.snackBar.open(this.translateService.translate("RecipeCreated"), undefined, { duration: 4000 });
       subscription.unsubscribe();
     });
   }
@@ -130,7 +134,7 @@ export class EditRecipeComponent implements OnInit {
       switchMap(user => from(this.recipeManagerService.updateRecipe(user.uid, this.recipe!))),
       switchMap(() => this.router.navigate([".."], { relativeTo: this.route })),
     ).subscribe(() => {
-      this.snackBar.open("Recipe was updated successfully", undefined, { duration: 4000 });
+      this.snackBar.open(this.translateService.translate("RecipeUpdated"), undefined, { duration: 4000 });
       subscription.unsubscribe();
     });
   }

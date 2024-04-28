@@ -1,7 +1,9 @@
 import { englishTranslation } from "./en";
+import { hungarianTranslation } from "./hu";
 
 const translations: { [key: string]: { [key: string]: string } } = {
-    en: englishTranslation
+    en: englishTranslation,
+    hu: hungarianTranslation,
 }
 
 export function findTranslation(languages: readonly string[]): { [key: string]: string } {
