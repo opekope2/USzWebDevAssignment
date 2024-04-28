@@ -47,12 +47,12 @@ export class RecipeManagerService {
       .set(recipe);
   }
 
-  deleteRecipe(uid: string, recipe: Recipe): Promise<void> {
+  deleteRecipe(uid: string, recipeId: string): Promise<void> {
     return this.firestore
       .collection(USERS_COLLECTION_NAME)
       .doc(uid)
       .collection(RECIPES_COLLECTION_NAME)
-      .doc(recipe.id)
+      .doc(recipeId)
       .delete();
   }
 }

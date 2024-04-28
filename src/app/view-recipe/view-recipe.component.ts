@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RecipeManagerService } from '../shared/services/recipe-manager.service';
 import { AuthService } from '../shared/services/auth.service';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Observable, filter, from, map, switchMap } from 'rxjs';
 import { Recipe } from '../shared/data/recipe';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-view-recipe',
@@ -27,7 +27,7 @@ export class ViewRecipeComponent implements OnInit {
 
   recipe$?: Observable<Recipe>;
 
-  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService) { }
+  constructor(private recipeManagerService: RecipeManagerService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.recipe$ = this.authService.currentUser$.pipe(
@@ -39,6 +39,15 @@ export class ViewRecipeComponent implements OnInit {
   }
 
   deleteRecipe() {
-
+    if (confirm("Do you want to delete this recipe?")) {
+      const subscription = this.authService.currentUser$.pipe(
+        filter(Boolean),
+        switchMap(user => this.recipeManagerService.deleteRecipe(user.uid, this.recipeId!)),
+        switchMap(() => from(this.router.navigate(["recipe"]))),
+      ).subscribe(() => {
+        subscription.unsubscribe();
+        alert("Deleted successfully");
+      });
+    }
   }
 }
