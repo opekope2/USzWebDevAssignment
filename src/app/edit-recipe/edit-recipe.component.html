@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button [attr.aria-label]="'Back' | translate" routerLink="..">
+    <button mat-icon-button [attr.aria-label]="'Back' | translate" (click)="returnToViewRecipe()">
         <mat-icon>arrow_back</mat-icon>
     </button>
     <span>{{ "EditRecipe" | translate }}</span>

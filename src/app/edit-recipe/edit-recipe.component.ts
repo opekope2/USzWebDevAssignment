@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe } from '../shared/pipes/translate.pipe';
 import { TranslateService } from '../shared/services/translate.service';
 import { LoadingIndicatorComponent } from '../shared/components/loading-indicator/loading-indicator.component';
+import { DialogService } from '../shared/services/dialog.service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -55,6 +56,7 @@ export class EditRecipeComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private translateService: TranslateService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -115,5 +117,22 @@ export class EditRecipeComponent implements OnInit {
       this.snackBar.open(this.translateService.translate("RecipeUpdated"), undefined, { duration: 4000 });
       this.router.navigate([".."], { relativeTo: this.route });
     });
+  }
+
+  returnToViewRecipe() {
+    this.dialogService.confirm(
+      this.translateService.translate("UnsavedChanges"),
+      this.translateService.translate("UnsavedChangesConfirmation"),
+      this.translateService.translate("Discard"),
+      this.translateService.translate("Cancel")
+    ).pipe(
+      take(1),
+      filter(Boolean),
+    ).subscribe(() => this.router.navigate([".."], { relativeTo: this.route }));
+  }
+
+  @HostListener("window:beforeunload", ["$event"])
+  onBeforeUnload(event: Event) {
+    event.preventDefault();
   }
 }

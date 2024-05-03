@@ -8,6 +8,7 @@ export const englishTranslation = {
     No: "No",
     Cancel: "Cancel",
     Delete: "Delete",
+    Discard: "Discard",
 
     // Login/register
     LogIn: "Log in",
@@ -46,5 +47,7 @@ export const englishTranslation = {
     AddInstruction: "Add instruction",
     RemoveInstruction: "Remove instruction",
     RecipeCreated: "Recipe was created successfully",
-    RecipeUpdated: "Recipe was updated successfully"
+    RecipeUpdated: "Recipe was updated successfully",
+    UnsavedChanges: "Unsaved changes",
+    UnsavedChangesConfirmation: "You may have unsaved changes",
 };

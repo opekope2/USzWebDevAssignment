@@ -8,6 +8,7 @@ export const hungarianTranslation = {
     No: "Nem",
     Cancel: "Mégre",
     Delete: "Törlés",
+    Discard: "Elvetés",
 
     // Login/register
     LogIn: "Bejelentkezés",
@@ -46,5 +47,7 @@ export const hungarianTranslation = {
     AddInstruction: "Utasítás hozzáadása",
     RemoveInstruction: "Utasítás eltávolítása",
     RecipeCreated: "Recept sikeresen létrehozva",
-    RecipeUpdated: "Recept sikeresen frissítve"
+    RecipeUpdated: "Recept sikeresen frissítve",
+    UnsavedChanges: "Nem mentett módosítások",
+    UnsavedChangesConfirmation: "Lehet, hogy nem mentett módosításai vannak",
 };
